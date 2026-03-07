@@ -42,5 +42,21 @@
   "env": {
     "NODE_ENV": "development",
     "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "mcpServers": {
+    "drawio": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "drawio-mcp"],
+      "env": {
+        "NODE_OPTIONS": "--no-experimental-global-navigator"
+      }
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@anthropic-ai/mcp-server-playwright"],
+      "env": {}
+    }
   }
 }

@@ -5,6 +5,17 @@
 model = "o4-mini"
 
 # 履歴を保存
-history = true
+# history = true
 
 # エージェント一覧は .codex/agents/*.md を参照
+
+[mcp_servers.drawio]
+command = "npx"
+args = ["-y", "drawio-mcp"]
+
+[mcp_servers.drawio.env]
+NODE_OPTIONS = "--no-experimental-global-navigator"
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["-y", "@playwright/mcp@latest"]

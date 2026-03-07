@@ -52,7 +52,22 @@
       "Bash(export PATH=\"$HOME/.npm-global/bin:$PATH\")",
       "Bash($HOME/.npm-global/bin/codex debug config)",
       "Bash($HOME/.npm-global/bin/codex debug --help)",
-      "Bash($HOME/.npm-global/bin/codex --version)"
+      "Bash($HOME/.npm-global/bin/codex --version)",
+      "Bash(npm install -g @anthropic-ai/claude-code)",
+      "Bash(claude --version)",
+      "Bash(npm list -g @anthropic-ai/claude-code)",
+      "Bash(npm root -g)",
+      "Bash(export PATH=\"$PATH:$HOME/.npm-global/bin\")",
+      "Bash(claude mcp add drawio npx -y drawio-mcp)",
+      "Bash(claude mcp add drawio -- npx -y drawio-mcp)",
+      "Bash(claude mcp list)",
+      "Bash(PATH=\"$PATH:/home/vscode/.npm-global/bin\" claude mcp list)",
+      "Bash(npx -y drawio-mcp --help)",
+      "Bash(node --version)",
+      "Bash(npm ls -g drawio-mcp)",
+      "Bash(npm view drawio-mcp engines)",
+      "Bash(node --no-experimental-global-navigator -e \"const { spawn } = require\\(''child_process''\\); console.log\\(''flag works''\\)\")",
+      "Bash(NODE_OPTIONS=\"--no-experimental-global-navigator\" timeout 5 npx -y drawio-mcp)"
     ]
   }
 }
