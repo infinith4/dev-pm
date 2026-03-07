@@ -30,7 +30,8 @@
       "Write",
       "Edit",
       "Glob",
-      "Grep"
+      "Grep",
+      "Bash(npx -y drawio-mcp*)"
     ],
     "deny": [
       "Bash(rm -rf /)",

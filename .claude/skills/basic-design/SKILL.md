@@ -13,18 +13,33 @@ description: 基本設計書作成エージェント。システムアーキテ�
 ```
 docs/design/
 ├── basic/
-│   ├── 00-overview.md           # 設計概要
+│   ├── 00-overview.md           # 設計概要（要件トレーサビリティ含む）
 │   ├── 01-architecture.md       # システムアーキテクチャ
 │   ├── 02-data-flow.md          # データフロー設計
 │   ├── 03-infrastructure.md     # インフラ構成
 │   ├── 04-security.md           # セキュリティ設計
 │   ├── 05-non-functional.md     # 非機能要件
-│   └── 06-external-interface.md # 外部インターフェース
+│   ├── 06-external-interface.md # 外部インターフェース設計
+│   └── 07-data-model.md         # データモデル設計
 └── diagrams/
     ├── architecture.mmd         # アーキテクチャ図
     ├── data-flow.mmd            # データフロー図
     └── infrastructure.mmd       # インフラ構成図
 ```
+
+## SRSとの対応
+
+基本設計は SRS (Software Requirements Specification) から派生する。各設計書とSRSセクションの対応:
+
+| 設計書 | SRS参照セクション |
+|--------|------------------|
+| 01-architecture.md | SRS 2 (Overall Description), Context Diagram |
+| 02-data-flow.md | SRS 3 (System Features) |
+| 03-infrastructure.md | SRS 2.3 (Operating Environment) |
+| 04-security.md | SRS 6.3 (Security) |
+| 05-non-functional.md | SRS 6 (Quality Attributes) |
+| 06-external-interface.md | SRS 5 (External Interface Requirements) |
+| 07-data-model.md | SRS 4 (Data Requirements) |
 
 ## 基本設計書テンプレート
 
@@ -60,6 +75,13 @@ docs/design/
 | 用語 | 定義 |
 |------|------|
 | [用語] | [説明] |
+
+## 要件トレーサビリティ
+
+| 設計コンポーネント | SRS要件ID | V&S機能ID | 備考 |
+|------------------|-----------|----------|------|
+| [コンポーネント名] | AUTH.LOGIN.001 | FT-001 | [対応内容] |
+| [コンポーネント名] | ORDER.CART.001 | FT-002 | [対応内容] |
 ```
 
 ### 2. システムアーキテクチャ (01-architecture.md)
@@ -281,6 +303,107 @@ sequenceDiagram
 | ログ | CloudWatch Logs / ELK |
 | アラート | PagerDuty / Slack |
 | APM | Datadog / New Relic |
+```
+
+### 7. 外部インターフェース設計 (06-external-interface.md)
+
+```markdown
+# 外部インターフェース設計
+
+参照: SRS セクション 5 (External Interface Requirements), Context Diagram
+
+## ソフトウェアインターフェース
+
+| IF-ID | 接続先 | 方式 | データ形式 | 認証 | SRS参照 |
+|-------|--------|------|-----------|------|---------|
+| SI-001 | [外部API名] | REST/HTTPS | JSON | OAuth 2.0 | SRS 5.2 |
+| SI-002 | [データベース] | TCP | SQL | 接続文字列 | SRS 5.2 |
+
+### SI-001: [外部API名] 連携
+
+- 目的: [データ取得/データ連携の目的]
+- エンドポイント: [ベースURL]
+- 認証方式: [OAuth 2.0 / API Key / mTLS]
+- レート制限: [X req/sec]
+- エラーハンドリング: [リトライ方針、フォールバック]
+- データマッピング:
+
+| 外部フィールド | 内部フィールド | 変換ルール |
+|--------------|--------------|-----------|
+| [external_field] | [internal_field] | [変換内容] |
+
+## ハードウェアインターフェース
+
+[該当なしの場合: 「本システムにハードウェアインターフェースはない。」]
+
+## 通信インターフェース
+
+| 通信種別 | プロトコル | 用途 | 暗号化 |
+|---------|----------|------|--------|
+| メール通知 | SMTP/TLS | ユーザー通知 | TLS 1.3 |
+| WebSocket | WSS | リアルタイム更新 | TLS 1.3 |
+
+## 統合パターン
+
+| パターン | 適用箇所 | 説明 |
+|---------|---------|------|
+| 同期API | [ユーザー操作応答] | リクエスト-レスポンス |
+| 非同期MQ | [バッチ処理連携] | メッセージキュー経由 |
+| Webhook | [外部イベント受信] | コールバック受信 |
+```
+
+### 8. データモデル設計 (07-data-model.md)
+
+```markdown
+# データモデル設計
+
+参照: SRS セクション 4 (Data Requirements)
+
+## 論理データモデル
+
+```mermaid
+erDiagram
+    ENTITY_A ||--o{ ENTITY_B : "関連名"
+    ENTITY_A {
+        int id PK
+        string name
+        datetime created_at
+    }
+    ENTITY_B {
+        int id PK
+        int entity_a_id FK
+        string description
+    }
+```
+
+## エンティティ一覧
+
+| エンティティ | 説明 | 主要属性 | 推定レコード数 | 増加率 |
+|------------|------|---------|-------------|--------|
+| [エンティティA] | [説明] | [PK, 主要項目] | [初期X件] | [月Y件] |
+| [エンティティB] | [説明] | [PK, FK, 主要項目] | [初期X件] | [月Y件] |
+
+## リレーションシップ
+
+| 親 | 子 | カーディナリティ | 説明 |
+|----|-----|----------------|------|
+| [エンティティA] | [エンティティB] | 1:N | [関連の説明] |
+
+## データ量見積もり
+
+| 項目 | 1年後 | 3年後 | 5年後 |
+|------|------|------|------|
+| 総レコード数 | [X件] | [Y件] | [Z件] |
+| ストレージ容量 | [X GB] | [Y GB] | [Z GB] |
+| バックアップ容量 | [X GB] | [Y GB] | [Z GB] |
+
+## データライフサイクル
+
+| データ種別 | 保持期間 | アーカイブ | 廃棄方法 |
+|-----------|---------|----------|---------|
+| [トランザクション] | [X年] | [アーカイブDB] | [物理削除] |
+| [マスタ] | [無期限] | [N/A] | [論理削除] |
+| [ログ] | [X ヶ月] | [S3 Glacier] | [自動削除] |
 ```
 
 ## Mermaid図の例

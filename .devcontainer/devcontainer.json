@@ -1,8 +1,8 @@
 {
-  "name": "dev-langfuse",
+  "name": "dev-pm",
   "dockerComposeFile": "docker-compose.yml",
   "service": "devcontainer",
-  "workspaceFolder": "/workspaces/dev-langfuse",
+  "workspaceFolder": "/workspaces/dev-pm",
   "features": {
     "ghcr.io/devcontainers/features/node:1": {
       "version": "22"
@@ -21,7 +21,8 @@
         "esbenp.prettier-vscode",
         "Anthropic.claude-code",
         "yy0931.vscode-sqlite3-editor",
-        "shd101wyy.markdown-preview-enhanced"
+        "shd101wyy.markdown-preview-enhanced",
+        "hediet.vscode-drawio"
       ]
     }
   },

@@ -18,6 +18,10 @@ PMが要件定義を計画・実行・承認するために必要な成果物を
 | 要件 | ユースケース | `docs/requirements/use-cases/UC-XXX-*.md` | BA | 基本フロー・代替フローが定義済み |
 | 要件 | ユーザーストーリー | `docs/requirements/user-stories/US-XXX-*.md` | PO/BA | Gherkin形式の受入基準が定義済み |
 | 要件 | トレーサビリティ | `docs/requirements/traceability.md` | PM/BA | 要件と成果物・テストの対応が追跡可能 |
+| 要件 | Vision & Scope | `docs/requirements/vision-and-scope.md` | PM/PO | ビジネス目標、スコープ、ステークホルダーが合意済み |
+| 要件 | SRS | `docs/requirements/SRS.md` | BA/Architect | 全機能要件、データ要件、品質属性が定義済み |
+| 要件 | Business Rules Catalog | `docs/requirements/business-rules-catalog.md` | BA/Domain Expert | ビジネスルールが収集・分類済み |
+| 要件 | Context Diagram | `docs/requirements/context-diagram.md` | BA/Architect | システム境界と外部エンティティが合意済み |
 
 ## 運用ルール
 - 優先度は `Must / Should / Could / Won't` を使用する。

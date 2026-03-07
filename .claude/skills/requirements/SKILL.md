@@ -8,25 +8,66 @@ description: 要件定義エージェント。機能要件、ユースケース�
 ## 役割
 プロジェクトの要件定義を担当し、開発チームが実装可能な形式で要件をドキュメント化します。
 
+## ドキュメント階層
+
+要件ドキュメントは以下の階層で作成する（上位文書が下位文書の方向性を決定する）:
+
+1. **Vision & Scope Document** - ビジネス要件・スコープの基盤文書（最初に作成）
+2. **SRS (Software Requirements Specification)** - 機能・非機能要件の体系的仕様
+3. **個別詳細ファイル** - FR/UC/US の詳細（SRSから参照）
+
+補助ドキュメント:
+- **Business Rules Catalog** - エンタープライズレベルのビジネスルール（プロジェクト横断）
+- **Context Diagram** - システム境界と外部エンティティの可視化
+- **PRD** - プロダクトマネジメント視点の要件（V&Sの代替として使用可能）
+
 ## 要件定義書構成
 
 ```
 docs/requirements/
+├── vision-and-scope.md          # Vision & Scope Document (Ch.5)
+├── SRS.md                       # Software Requirements Specification (Ch.10)
+├── business-rules-catalog.md    # Business Rules Catalog (Ch.9)
+├── context-diagram.md           # System Context Diagram
 ├── PRD.md                       # プロダクト要件定義書
 ├── functional/
 │   ├── overview.md              # 機能要件概要
-│   ├── FR-001-auth.md           # 認証機能要件
-│   ├── FR-002-user.md           # ユーザー管理要件
+│   ├── AUTH.LOGIN-auth.md       # 認証機能要件
+│   ├── USER.MGMT-user.md       # ユーザー管理要件
 │   └── ...
 ├── non-functional/
 │   └── NFR.md                   # 非機能要件
 ├── use-cases/
 │   ├── UC-001-login.md          # ログインユースケース
 │   └── ...
-└── user-stories/
-    ├── US-001-registration.md   # ユーザー登録ストーリー
-    └── ...
+├── user-stories/
+│   ├── US-001-registration.md   # ユーザー登録ストーリー
+│   └── ...
+└── traceability.md              # トレーサビリティマトリクス
 ```
+
+## 要件ID規約
+
+要件IDは階層的テキストタグを推奨する（Software Requirements 3rd Edition Ch.10）:
+
+```
+Feature.SubFeature.Sequence
+例: AUTH.LOGIN.001, ORDER.CART.002, USER.PROFILE.001
+```
+
+- 親要件は見出し/機能名として記述し、子要件の集合が親の機能を実現する
+- 削除した要件のIDは再利用しない
+- シンプルなプロジェクトでは `FR-XXX` 形式も許容する
+
+## TBD管理
+
+未確定の情報は以下の形式で記録し、SRS Appendix C に一覧化する:
+
+```
+[TBD-nnn: 説明, 担当者, 期限]
+```
+
+全TBDは実装開始前に解決すること。
 
 ## PRD（プロダクト要件定義書）テンプレート
 
@@ -331,22 +372,26 @@ docs/requirements/
 ```markdown
 # 要件トレーサビリティマトリクス
 
-| 要件ID | ユースケース | ユーザーストーリー | 画面 | API | テストケース |
-|--------|-------------|-------------------|------|-----|-------------|
-| FR-001 | UC-001 | US-001, US-002 | SCR-001 | AUTH-001 | TC-001 |
-| FR-002 | UC-002 | US-003 | SCR-002 | USER-001 | TC-002 |
+| 要件ID | ビジネスルール | V&S機能 | ユースケース | ユーザーストーリー | 画面 | API | テストケース |
+|--------|-------------|---------|-------------|-------------------|------|-----|-------------|
+| AUTH.LOGIN.001 | BR-001 | FT-001 | UC-001 | US-001, US-002 | SCR-001 | AUTH-001 | TC-001 |
+| USER.MGMT.001 | BR-002 | FT-002 | UC-002 | US-003 | SCR-002 | USER-001 | TC-002 |
 ```
 
 ## 出力形式
 
 要件定義時の成果物：
 
-1. **PRD**: `docs/requirements/PRD.md`
-2. **機能要件**: `docs/requirements/functional/FR-XXX-*.md`
-3. **非機能要件**: `docs/requirements/non-functional/NFR.md`
-4. **ユースケース**: `docs/requirements/use-cases/UC-XXX-*.md`
-5. **ユーザーストーリー**: `docs/requirements/user-stories/US-XXX-*.md`
-6. **トレーサビリティ**: `docs/requirements/traceability.md`
+1. **Vision & Scope**: `docs/requirements/vision-and-scope.md`（最初に作成）
+2. **Context Diagram**: `docs/requirements/context-diagram.md`
+3. **Business Rules**: `docs/requirements/business-rules-catalog.md`
+4. **SRS**: `docs/requirements/SRS.md`
+5. **PRD**: `docs/requirements/PRD.md`（V&Sの代替として使用可能）
+6. **機能要件**: `docs/requirements/functional/` 配下
+7. **非機能要件**: `docs/requirements/non-functional/NFR.md`
+8. **ユースケース**: `docs/requirements/use-cases/UC-XXX-*.md`
+9. **ユーザーストーリー**: `docs/requirements/user-stories/US-XXX-*.md`
+10. **トレーサビリティ**: `docs/requirements/traceability.md`
 
 ## 関連スキル
 

@@ -38,13 +38,21 @@
       "Bash(npx tsx src/index.ts add --help)",
       "Bash(npx tsx src/index.ts edit --help)",
       "WebFetch(domain:langfuse.com)",
-      "Bash(find /workspaces/dev-langfuse -type f \\\\\\( -name \"package.json\" -o -name \"requirements.txt\" -o -name \"pom.xml\" -o -name \"*.csproj\" \\\\\\) -exec head -30 {} +)",
+      "Bash(find /workspaces/dev-pm -type f \\\\\\( -name \"package.json\" -o -name \"requirements.txt\" -o -name \"pom.xml\" -o -name \"*.csproj\" \\\\\\) -exec head -30 {} +)",
       "Bash(docker --version)",
       "Bash(docker compose version)",
       "Bash(apt list --installed)",
       "Bash(snap list)",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(git -C \"c:/Projects/github/infinith4/dev-pm\" status langfuse/)",
+      "Bash(python -c \":*)",
+      "WebSearch",
+      "Bash(npm list -g @openai/codex)",
+      "Bash(export PATH=\"$HOME/.npm-global/bin:$PATH\")",
+      "Bash($HOME/.npm-global/bin/codex debug config)",
+      "Bash($HOME/.npm-global/bin/codex debug --help)",
+      "Bash($HOME/.npm-global/bin/codex --version)"
     ]
   }
 }
