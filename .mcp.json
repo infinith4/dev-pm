@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "drawio": {
+      "command": "bash",
+      "args": ["-c", "NODE_OPTIONS='--no-experimental-global-navigator' npx -y drawio-mcp"],
+      "env": {
+        "NODE_OPTIONS": "--no-experimental-global-navigator",
+        "PATH": "/usr/local/share/nvm/versions/node/v22.22.1/bin:/usr/local/bin:/usr/bin:/bin"
+      }
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"],
+      "env": {
+        "PATH": "/usr/local/share/nvm/versions/node/v22.22.1/bin:/usr/local/bin:/usr/bin:/bin"
+      }
+    }
+  }
+}

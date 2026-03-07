@@ -67,7 +67,38 @@
       "Bash(npm ls -g drawio-mcp)",
       "Bash(npm view drawio-mcp engines)",
       "Bash(node --no-experimental-global-navigator -e \"const { spawn } = require\\(''child_process''\\); console.log\\(''flag works''\\)\")",
-      "Bash(NODE_OPTIONS=\"--no-experimental-global-navigator\" timeout 5 npx -y drawio-mcp)"
+      "Bash(NODE_OPTIONS=\"--no-experimental-global-navigator\" timeout 5 npx -y drawio-mcp)",
+      "Bash(NODE_OPTIONS=\"--no-experimental-global-navigator\" timeout 10 npx -y drawio-mcp)",
+      "Bash(timeout 10 npx -y @anthropic-ai/mcp-server-playwright)",
+      "Bash(npm search mcp playwright --json)",
+      "Bash(timeout 10 npx -y @playwright/mcp)",
+      "Bash(npm list -g)",
+      "Bash(npm view drawio-mcp versions --json)",
+      "Bash(node -e \"console.log\\(process.version\\)\")",
+      "Bash(npx -y drawio-mcp@1.6.0 --help)",
+      "Bash(NODE_OPTIONS=\"--no-experimental-global-navigator\" npx -y drawio-mcp --help)",
+      "Bash(npx --version)",
+      "Bash(npx -y @playwright/mcp@latest --help)",
+      "Bash(bash -c \"NODE_OPTIONS=''--no-experimental-global-navigator'' npx -y drawio-mcp --help\")",
+      "Bash(NODE_OPTIONS='--no-experimental-global-navigator' npx -y drawio-mcp --version 2>&1 | head -20)",
+      "Bash(npx -y @playwright/mcp@latest --version 2>&1 | head -20)",
+      "Bash(PATH=\"$PATH:/home/vscode/.npm-global/bin\" claude mcp list --help 2>&1 | head -30)",
+      "Bash(timeout 5 npx -y @playwright/mcp@latest 2>&1 || true)",
+      "Bash(echo $DISPLAY && xdpyinfo 2>&1 | head -5 || echo \"no display\")",
+      "Bash(npm view drawio-mcp main 2>/dev/null | head -3; node -e \"const pkg = require\\('/root/.npm/_npx/$\\(ls /root/.npm/_npx/ 2>/dev/null | head -1\\)/node_modules/drawio-mcp/package.json'\\); console.log\\(pkg.main, pkg.description\\)\" 2>/dev/null || echo \"package not cached\")",
+      "Bash(find /home/vscode/.npm/_npx/ -name \"drawio-mcp\" -o -name \"drawio*\" 2>/dev/null | head -10)",
+      "Bash(which node && echo \"PATH: $PATH\")",
+      "Bash(timeout 5 bash -c \"NODE_OPTIONS='--no-experimental-global-navigator' npx -y drawio-mcp 2>&1\" || true)",
+      "Read(//home/vscode/.claude/**)",
+      "Bash(NODE_OPTIONS='--no-experimental-global-navigator' npx -y drawio-mcp --help 2>&1 | head -20)",
+      "mcp__drawio__new_diagram",
+      "mcp__drawio__add_nodes",
+      "mcp__drawio__link_nodes",
+      "mcp__drawio__get_diagram_info"
     ]
-  }
+  },
+  "enabledMcpjsonServers": [
+    "drawio",
+    "playwright"
+  ]
 }

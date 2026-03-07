@@ -56,8 +56,8 @@ drawio MCP が接続されると、`mcp__drawio__` プレフィックスのツ�
 #### システム構成図の作成
 
 ```
-「Webアプリケーションのシステム構成図を作成して。
- フロントエンド（React）、APIサーバー（FastAPI）、データベース（PostgreSQL）の3層構成で。
+drawio MCPで「Webアプリケーションのシステム構成図を作成して。
+ フロントエンド（React）、APIサーバー（FastAPI）、データベース（PostgreSQL）の3層構成でAzure のアイコンを利用してください。
  docs/design/basic/system-architecture.drawio に保存して。」
 ```
 

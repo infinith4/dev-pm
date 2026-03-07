@@ -1,0 +1,236 @@
+<mxfile host="app.diagrams.net" modified="2026-03-07" version="21.0.0">
+  <diagram id="system-architecture" name="システム構成図">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1"
+      connect="1" arrows="1" fold="1" page="0" pageScale="1"
+      pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ===== タイトル ===== -->
+        <mxCell id="title"
+          value="Webアプリケーション システム構成図（3層アーキテクチャ / Azure）"
+          style="text;html=1;strokeColor=none;fillColor=none;align=center;
+                 verticalAlign=middle;whiteSpace=wrap;fontSize=16;fontStyle=1;"
+          vertex="1" parent="1">
+          <mxGeometry x="100" y="10" width="620" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ===== ユーザー ===== -->
+        <mxCell id="user"
+          value="ユーザー"
+          style="shape=mxgraph.azure2.user;sketch=0;html=1;pointerEvents=1;dashed=0;
+                 fillColor=#0072C6;strokeColor=none;strokeWidth=2;
+                 verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;"
+          vertex="1" parent="1">
+          <mxGeometry x="376" y="60" width="68" height="68" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Azure クラウド境界（コンテナ） ===== -->
+        <mxCell id="azure_cloud"
+          value="Microsoft Azure"
+          style="points=[[0,0],[0.25,0],[0.5,0],[0.75,0],[1,0],[1,0.25],[1,0.5],[1,0.75],
+                 [1,1],[0.75,1],[0.5,1],[0.25,1],[0,1],[0,0.75],[0,0.5],[0,0.25]];
+                 shape=mxgraph.azure2.azure;sketch=0;html=1;pointerEvents=1;dashed=0;
+                 labelBackgroundColor=none;fillColor=#0050EF;strokeColor=#ffffff;
+                 strokeWidth=2;fontSize=14;fontColor=#ffffff;align=left;
+                 verticalAlign=top;fontStyle=1;spacingLeft=40;spacingTop=5;outlineConnect=0;"
+          vertex="1" parent="1">
+          <mxGeometry x="50" y="155" width="720" height="590" as="geometry" />
+        </mxCell>
+
+        <!-- ========================================== -->
+        <!-- Tier 1: フロントエンド層                   -->
+        <!-- ========================================== -->
+        <mxCell id="tier1_bg"
+          value="Tier 1 ─ フロントエンド層"
+          style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;
+                 fillColor=#dae8fc;strokeColor=#6c8ebf;
+                 fontSize=12;fontStyle=1;verticalAlign=top;"
+          vertex="1" parent="1">
+          <mxGeometry x="70" y="185" width="680" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- React / Static Web Apps -->
+        <mxCell id="frontend"
+          value="React (TypeScript)&#xa;Static Web Apps"
+          style="shape=mxgraph.azure2.static_web_apps;sketch=0;html=1;pointerEvents=1;
+                 dashed=0;fillColor=#0072C6;strokeColor=none;strokeWidth=2;
+                 verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;
+                 fontSize=10;"
+          vertex="1" parent="1">
+          <mxGeometry x="210" y="222" width="68" height="68" as="geometry" />
+        </mxCell>
+
+        <!-- Azure CDN -->
+        <mxCell id="cdn"
+          value="Azure CDN&#xa;コンテンツ配信"
+          style="shape=mxgraph.azure2.cdn_profiles;sketch=0;html=1;pointerEvents=1;
+                 dashed=0;fillColor=#0072C6;strokeColor=none;strokeWidth=2;
+                 verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;
+                 fontSize=10;"
+          vertex="1" parent="1">
+          <mxGeometry x="540" y="222" width="68" height="68" as="geometry" />
+        </mxCell>
+
+        <!-- ========================================== -->
+        <!-- Tier 2: アプリケーション層                 -->
+        <!-- ========================================== -->
+        <mxCell id="tier2_bg"
+          value="Tier 2 ─ アプリケーション層"
+          style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;
+                 fillColor=#d5e8d4;strokeColor=#82b366;
+                 fontSize=12;fontStyle=1;verticalAlign=top;"
+          vertex="1" parent="1">
+          <mxGeometry x="70" y="355" width="680" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- FastAPI / App Service -->
+        <mxCell id="api"
+          value="FastAPI (Python)&#xa;App Service"
+          style="shape=mxgraph.azure2.app_services;sketch=0;html=1;pointerEvents=1;
+                 dashed=0;fillColor=#0072C6;strokeColor=none;strokeWidth=2;
+                 verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;
+                 fontSize=10;"
+          vertex="1" parent="1">
+          <mxGeometry x="210" y="392" width="68" height="68" as="geometry" />
+        </mxCell>
+
+        <!-- API Management -->
+        <mxCell id="apim"
+          value="API Management&#xa;認証・レート制限"
+          style="shape=mxgraph.azure2.api_management_services;sketch=0;html=1;
+                 pointerEvents=1;dashed=0;fillColor=#0072C6;strokeColor=none;strokeWidth=2;
+                 verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;
+                 fontSize=10;"
+          vertex="1" parent="1">
+          <mxGeometry x="540" y="392" width="68" height="68" as="geometry" />
+        </mxCell>
+
+        <!-- ========================================== -->
+        <!-- Tier 3: データ層                           -->
+        <!-- ========================================== -->
+        <mxCell id="tier3_bg"
+          value="Tier 3 ─ データ層"
+          style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;
+                 fillColor=#fff2cc;strokeColor=#d6b656;
+                 fontSize=12;fontStyle=1;verticalAlign=top;"
+          vertex="1" parent="1">
+          <mxGeometry x="70" y="525" width="680" height="140" as="geometry" />
+        </mxCell>
+
+        <!-- PostgreSQL -->
+        <mxCell id="db"
+          value="PostgreSQL&#xa;Azure DB for PostgreSQL&#xa;(Flexible Server)"
+          style="shape=mxgraph.azure2.azure_database_postgresql_server;sketch=0;html=1;
+                 pointerEvents=1;dashed=0;fillColor=#0072C6;strokeColor=none;strokeWidth=2;
+                 verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;
+                 fontSize=10;"
+          vertex="1" parent="1">
+          <mxGeometry x="210" y="562" width="68" height="68" as="geometry" />
+        </mxCell>
+
+        <!-- Key Vault -->
+        <mxCell id="keyvault"
+          value="Azure Key Vault&#xa;シークレット管理"
+          style="shape=mxgraph.azure2.key_vaults;sketch=0;html=1;pointerEvents=1;
+                 dashed=0;fillColor=#0072C6;strokeColor=none;strokeWidth=2;
+                 verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;
+                 fontSize=10;"
+          vertex="1" parent="1">
+          <mxGeometry x="540" y="562" width="68" height="68" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Azure Monitor ===== -->
+        <mxCell id="monitor"
+          value="Azure Monitor / Application Insights"
+          style="shape=mxgraph.azure2.azure_monitor;sketch=0;html=1;pointerEvents=1;
+                 dashed=0;fillColor=#0072C6;strokeColor=none;strokeWidth=2;
+                 verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;
+                 fontSize=10;"
+          vertex="1" parent="1">
+          <mxGeometry x="376" y="695" width="68" height="68" as="geometry" />
+        </mxCell>
+
+        <!-- ========================================== -->
+        <!-- エッジ（接続線）                           -->
+        <!-- ========================================== -->
+
+        <!-- ユーザー → フロントエンド -->
+        <mxCell id="e_user_fe"
+          value="HTTPS"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;
+                 strokeColor=#0072C6;fontColor=#0072C6;fontSize=10;"
+          edge="1" source="user" target="frontend" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- フロントエンド ─ CDN（双方向なし） -->
+        <mxCell id="e_fe_cdn"
+          value="静的アセット"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;dashed=1;
+                 endArrow=none;strokeColor=#6c8ebf;fontColor=#6c8ebf;fontSize=10;"
+          edge="1" source="frontend" target="cdn" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- フロントエンド → API -->
+        <mxCell id="e_fe_api"
+          value="REST API / HTTPS"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;
+                 strokeColor=#82b366;fontColor=#82b366;fontSize=10;"
+          edge="1" source="frontend" target="api" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- API ─ API Management -->
+        <mxCell id="e_api_apim"
+          value="リクエスト制御"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;dashed=1;
+                 endArrow=none;strokeColor=#82b366;fontColor=#82b366;fontSize=10;"
+          edge="1" source="api" target="apim" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- API → PostgreSQL -->
+        <mxCell id="e_api_db"
+          value="SQL / TCP 5432"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;
+                 strokeColor=#d6b656;fontColor=#d6b656;fontSize=10;"
+          edge="1" source="api" target="db" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- API → Key Vault -->
+        <mxCell id="e_api_kv"
+          value="シークレット取得"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;dashed=1;
+                 strokeColor=#d79b00;fontColor=#d79b00;fontSize=10;"
+          edge="1" source="api" target="keyvault" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Monitor → フロントエンド（監視） -->
+        <mxCell id="e_mon_fe"
+          value="監視"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;dashed=1;
+                 endArrow=open;startArrow=none;strokeColor=#6c8ebf;fontColor=#6c8ebf;
+                 fontSize=10;"
+          edge="1" source="monitor" target="frontend" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Monitor → API（監視） -->
+        <mxCell id="e_mon_api"
+          value="監視"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;rounded=0;dashed=1;
+                 endArrow=open;startArrow=none;strokeColor=#82b366;fontColor=#82b366;
+                 fontSize=10;"
+          edge="1" source="monitor" target="api" parent="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
