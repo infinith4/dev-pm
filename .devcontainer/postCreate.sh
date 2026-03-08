@@ -2,7 +2,7 @@
 set -euo pipefail
 
 npm config set prefix "$HOME/.npm-global"
-npm install -g eslint prettier @openai/codex @anthropic-ai/claude-code
+npm install -g eslint prettier @openai/codex @anthropic-ai/claude-code @google/gemini-cli
 pip install --user ruff black
 
 mkdir -p "$HOME/bin"

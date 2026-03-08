@@ -44,7 +44,7 @@
 
 ## 2. 機能要件サマリー
 
-> 詳細は `templates/functional/FR-XXX-*.md` および `templates/use-cases/UC-XXX-*.md` を参照。
+> 一覧は `templates/functional/functional-list.md`、詳細は `templates/functional/FR-XXX-*.md` および `templates/use-cases/UC-XXX-*.md` を参照。
 
 | 機能ID | 機能名 | 概要 | 優先度 | 詳細ファイル |
 |-------|-------|------|-------|-----------|

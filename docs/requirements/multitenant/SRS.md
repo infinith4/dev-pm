@@ -66,6 +66,7 @@ Tenant.Provision:   テナントプロビジョニング
 | 文書名 | バージョン | 場所 |
 |-------|---------|------|
 | Vision & Scope Document | 1.0 | `docs/requirements/multitenant/vision-and-scope.md` |
+| 機能一覧 | 1.0 | `docs/requirements/multitenant/functional/functional-list.md` |
 | 機能要件: テナント管理 | 1.0 | `docs/requirements/multitenant/functional/FR-010-テナント管理.md` |
 | 機能要件: テナントデータ分離 | 1.0 | `docs/requirements/multitenant/functional/FR-011-テナントデータ分離.md` |
 | 非機能要件 | 1.0 | `docs/requirements/multitenant/non-functional/NFR.md` |
