@@ -94,7 +94,8 @@
       "mcp__drawio__new_diagram",
       "mcp__drawio__add_nodes",
       "mcp__drawio__link_nodes",
-      "mcp__drawio__get_diagram_info"
+      "mcp__drawio__get_diagram_info",
+      "Bash(cd /workspaces/dev-pm/docs/9780735679665-files-master\npython3 - <<'EOF'\nimport zipfile, re\n\ndef read_docx\\(path\\):\n    try:\n        with zipfile.ZipFile\\(path\\) as z:\n            xml = z.read\\('word/document.xml'\\).decode\\('utf-8'\\)\n        # タグ除去・改行整形\n        text = re.sub\\(r'<w:p[ >]', '\\\\n', xml\\)\n        text = re.sub\\(r'<[^>]+>', '', text\\)\n        text = re.sub\\(r'\\\\n{3,}', '\\\\n\\\\n', text\\)\n        return text.strip\\(\\)\n    except Exception as e:\n        return f\"ERROR: {e}\"\n\nfiles = [\n    \"Chapter 8/Use Case Template.docx\",\n    \"Chapter 5/Vision and Scope Template.docx\",\n]\nfor f in files:\n    print\\(f\"\\\\n{'='*60}\\\\n{f}\\\\n{'='*60}\"\\)\n    print\\(read_docx\\(f\\)[:6000]\\)\nEOF)"
     ]
   },
   "enabledMcpjsonServers": [
