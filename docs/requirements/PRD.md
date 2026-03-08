@@ -13,10 +13,10 @@
 | 承認者 | [承認者氏名・役職] |
 
 関連文書:
-- Vision & Scope: [vision-and-scope.md](vision-and-scope.md)
+- Vision & Scope: [vision-and-scope.md](templates/vision-and-scope.md)
 - SRS: [SRS.md](SRS.md)
-- 非機能要件: [non-functional/NFR.md](non-functional/NFR.md)
-- トレーサビリティ: [traceability.md](traceability.md)
+- 非機能要件: [non-functional/NFR.md](templates/non-functional/NFR.md)
+- トレーサビリティ: [traceability.md](templates/traceability.md)
 
 ---
 
@@ -44,13 +44,13 @@
 
 ## 2. 機能要件サマリー
 
-> 詳細は `functional/FR-XXX-*.md` および `use-cases/UC-XXX-*.md` を参照。
+> 詳細は `templates/functional/FR-XXX-*.md` および `templates/use-cases/UC-XXX-*.md` を参照。
 
 | 機能ID | 機能名 | 概要 | 優先度 | 詳細ファイル |
 |-------|-------|------|-------|-----------|
-| FR-001 | [機能名] | [概要] | Must | [functional/FR-001-機能名.md](functional/FR-001-機能名.md) |
-| FR-002 | [機能名] | [概要] | Should | [functional/FR-002-機能名.md](functional/FR-002-機能名.md) |
-| FR-003 | [機能名] | [概要] | Could | [functional/FR-003-機能名.md](functional/FR-003-機能名.md) |
+| FR-001 | [機能名] | [概要] | Must | [templates/functional/FR-001-機能名.md](templates/functional/FR-001-機能名.md) |
+| FR-002 | [機能名] | [概要] | Should | [templates/functional/FR-002-機能名.md](templates/functional/FR-002-機能名.md) |
+| FR-003 | [機能名] | [概要] | Could | [templates/functional/FR-003-機能名.md](templates/functional/FR-003-機能名.md) |
 
 優先度定義:
 - **Must**: リリースに必須。欠けるとビジネス目標を達成できない

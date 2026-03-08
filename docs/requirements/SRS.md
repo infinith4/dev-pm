@@ -57,15 +57,15 @@ Feature.SubFeature.Sequence
 
 [Vision & Scope Document への参照。ここではスコープの要約のみ記述する。]
 
-参照: [vision-and-scope.md](vision-and-scope.md)
+参照: [templates/vision-and-scope.md](templates/vision-and-scope.md)
 
 ### 1.4 References（参考文献）
 
 | 文書名 | バージョン | 場所 |
 | --- | --- | --- |
-| Vision & Scope Document | x.x | `docs/requirements/vision-and-scope.md` |
-| Business Rules Catalog | x.x | `docs/requirements/business-rules-catalog.md` |
-| Context Diagram | x.x | `docs/requirements/context-diagram.md` |
+| Vision & Scope Document | x.x | `docs/requirements/templates/vision-and-scope.md` |
+| Business Rules Catalog | x.x | `docs/requirements/templates/business-rules-catalog.md` |
+| Context Diagram | x.x | `docs/requirements/templates/context-diagram.md` |
 | [その他関連文書] | x.x | [パス/URL] |
 
 ---
@@ -76,7 +76,7 @@ Feature.SubFeature.Sequence
 
 [新規プロダクトか、既存システムの後継か、大規模システムの一部か。コンテキスト図を参照し、システムの位置付けを記述する。]
 
-参照: [context-diagram.md](context-diagram.md)
+参照: [context-diagram.md](templates/context-diagram.md)
 
 ### 2.2 User Classes and Characteristics（ユーザークラス）
 
@@ -114,7 +114,7 @@ Feature.SubFeature.Sequence
 
 ## 3. System Features
 
-機能ごとにセクションを繰り返す。個別機能の詳細は `functional/` 配下の個別ファイルに記述してもよい。
+機能ごとにセクションを繰り返す。個別機能の詳細は `templates/functional/` 配下の個別ファイルに記述してもよい。
 
 ### 3.1 [機能名: 例 ユーザー認証]
 
