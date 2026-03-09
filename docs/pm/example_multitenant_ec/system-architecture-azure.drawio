@@ -1,0 +1,398 @@
+<mxfile>
+  <diagram id="azure-arch" name="ShopHub SaaS Azure System Architecture">
+    <mxGraphModel dx="2200" dy="1600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1800" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ===== Title ===== -->
+        <mxCell id="title" value="&lt;b&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;ShopHub SaaS - Azure System Architecture&lt;/font&gt;&lt;/b&gt;&lt;br&gt;Azure Japan East (Primary) / Japan West (DR)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="300" y="10" width="600" height="50" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Users ===== -->
+        <mxCell id="user-consumer" value="Consumer" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/general/User.svg;" vertex="1" parent="1">
+          <mxGeometry x="340" y="80" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="user-admin" value="Tenant Admin" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/general/User.svg;" vertex="1" parent="1">
+          <mxGeometry x="540" y="80" width="40" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Edge Network Group ===== -->
+        <mxCell id="grp-edge" value="Azure Edge Network" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E6F2FF;strokeColor=#0078D4;fontStyle=1;fontSize=12;verticalAlign=top;dashed=0;arcSize=8;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="160" y="160" width="620" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="frontdoor" value="Azure Front Door&lt;br&gt;+ CDN" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=11;image=img/lib/azure2/networking/Front_Doors.svg;" vertex="1" parent="1">
+          <mxGeometry x="280" y="180" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="waf" value="WAF" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=11;image=img/lib/azure2/networking/Web_Application_Firewall_Policies_WAF.svg;" vertex="1" parent="1">
+          <mxGeometry x="440" y="180" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="ddos" value="DDoS Protection" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=11;image=img/lib/azure2/networking/DDoS_Protection_Plans.svg;" vertex="1" parent="1">
+          <mxGeometry x="600" y="180" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Application Layer Group ===== -->
+        <mxCell id="grp-app" value="Azure Container Apps (Shared Application Layer)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#4CAF50;fontStyle=1;fontSize=12;verticalAlign=top;dashed=0;arcSize=8;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="60" y="300" width="880" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="react-ec" value="React EC Site" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=11;image=img/lib/azure2/app_services/App_Services.svg;" vertex="1" parent="1">
+          <mxGeometry x="130" y="340" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="react-admin" value="React Admin" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=11;image=img/lib/azure2/app_services/App_Services.svg;" vertex="1" parent="1">
+          <mxGeometry x="310" y="340" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="fastapi" value="FastAPI&lt;br&gt;Backend" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=11;image=img/lib/azure2/compute/Container_Instances.svg;" vertex="1" parent="1">
+          <mxGeometry x="490" y="340" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="batch-worker" value="Azure Batch&lt;br&gt;Worker" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=11;image=img/lib/azure2/compute/Batch_Accounts.svg;" vertex="1" parent="1">
+          <mxGeometry x="790" y="340" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Cache & Search Group (left below FastAPI) ===== -->
+        <mxCell id="grp-cache" value="Cache &amp; Search" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FCE4EC;strokeColor=#E91E63;fontStyle=1;fontSize=12;verticalAlign=top;dashed=0;arcSize=8;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="60" y="470" width="360" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="redis" value="Azure Cache&lt;br&gt;for Redis" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=11;image=img/lib/azure2/databases/Cache_Redis.svg;" vertex="1" parent="1">
+          <mxGeometry x="120" y="498" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="search" value="Cognitive&lt;br&gt;Search" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=11;image=img/lib/azure2/ai_machine_learning/Cognitive_Services.svg;" vertex="1" parent="1">
+          <mxGeometry x="310" y="498" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Messaging Group (right, same row as cache) ===== -->
+        <mxCell id="grp-queue" value="Azure Service Bus" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EDE7F6;strokeColor=#673AB7;fontStyle=1;fontSize=12;verticalAlign=top;dashed=0;arcSize=8;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="470" y="470" width="470" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="order-queue" value="order-batch-queue" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=11;image=img/lib/azure2/integration/Service_Bus.svg;" vertex="1" parent="1">
+          <mxGeometry x="540" y="498" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="factory-queue" value="factory-transfer-queue" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=11;image=img/lib/azure2/integration/Service_Bus.svg;" vertex="1" parent="1">
+          <mxGeometry x="790" y="498" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Data Layer Group ===== -->
+        <mxCell id="grp-data" value="Tenant-Isolated Data Layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;fontStyle=1;fontSize=12;verticalAlign=top;dashed=0;arcSize=8;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="60" y="630" width="640" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="pg-tenant" value="PostgreSQL Flex&lt;br&gt;(Per-Tenant)" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=11;image=img/lib/azure2/databases/Azure_Database_PostgreSQL_Server.svg;" vertex="1" parent="1">
+          <mxGeometry x="130" y="660" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="pg-platform" value="PostgreSQL&lt;br&gt;(Platform)" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=11;image=img/lib/azure2/databases/Azure_Database_PostgreSQL_Server.svg;" vertex="1" parent="1">
+          <mxGeometry x="350" y="660" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="blob" value="Blob Storage&lt;br&gt;(Per-Tenant)" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=11;image=img/lib/azure2/storage/Storage_Accounts.svg;" vertex="1" parent="1">
+          <mxGeometry x="570" y="660" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- ===== External Systems Group ===== -->
+        <mxCell id="grp-external" value="External Systems" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#9C27B0;fontStyle=1;fontSize=12;verticalAlign=top;dashed=0;arcSize=8;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="60" y="800" width="880" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="stripe" value="Stripe&lt;br&gt;(Payment / Billing)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#635BFF;fontColor=#FFFFFF;strokeColor=#4B45C6;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="838" width="140" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="sftp" value="SFTP (Factory)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#455A64;fontColor=#FFFFFF;strokeColor=#37474F;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="838" width="130" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="factory-webhook" value="Factory Webhook" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#455A64;fontColor=#FFFFFF;strokeColor=#37474F;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="510" y="838" width="140" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="factory-blob" value="Factory Blob" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=11;image=img/lib/azure2/storage/Storage_Accounts.svg;" vertex="1" parent="1">
+          <mxGeometry x="770" y="835" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Identity Group (right column) ===== -->
+        <mxCell id="grp-identity" value="Identity" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#FF9800;fontStyle=1;fontSize=12;verticalAlign=top;dashed=0;arcSize=8;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="160" width="260" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="entra-id" value="Microsoft Entra ID&lt;br&gt;(Per-Tenant SSO)" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=11;image=img/lib/azure2/identity/Azure_Active_Directory.svg;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="200" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="ciam" value="External Identities&lt;br&gt;(CIAM)" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=11;image=img/lib/azure2/identity/External_Identities.svg;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="320" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Security Group (right column) ===== -->
+        <mxCell id="grp-security" value="Security" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#F9A825;fontStyle=1;fontSize=12;verticalAlign=top;dashed=0;arcSize=8;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="470" width="260" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="keyvault" value="Azure Key Vault" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=11;image=img/lib/azure2/security/Key_Vaults.svg;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="498" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- ===== Monitoring Group (right column) ===== -->
+        <mxCell id="grp-monitor" value="Monitoring" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8EAF6;strokeColor=#3F51B5;fontStyle=1;fontSize=12;verticalAlign=top;dashed=0;arcSize=8;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="630" width="260" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="monitor" value="Azure Monitor" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=11;image=img/lib/azure2/management_governance/Monitor.svg;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="660" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="appinsights" value="App Insights" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=11;image=img/lib/azure2/devops/Application_Insights.svg;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="660" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- ===== DR ===== -->
+        <mxCell id="dr-region" value="DR: Japan West" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=11;image=img/lib/azure2/general/Globe.svg;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="830" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- ========================================== -->
+        <!-- ===== EDGES (non-overlapping routes) ===== -->
+        <!-- ========================================== -->
+
+        <!-- === Row 0→1: Users → Front Door === -->
+        <mxCell id="e-user-fd" value="HTTPS" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0078D4;strokeWidth=2;fontSize=10;exitX=0.5;exitY=1;entryX=0.25;entryY=0;" edge="1" parent="1" source="user-consumer" target="frontdoor">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-admin-fd" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0078D4;strokeWidth=2;exitX=0.5;exitY=1;entryX=0.75;entryY=0;" edge="1" parent="1" source="user-admin" target="frontdoor">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Edge: FD ─ WAF ─ DDoS (horizontal, no arrow) -->
+        <mxCell id="e-fd-waf" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#0078D4;endArrow=none;startArrow=none;" edge="1" parent="1" source="frontdoor" target="waf">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-waf-ddos" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;html=1;strokeColor=#0078D4;endArrow=none;startArrow=none;" edge="1" parent="1" source="waf" target="ddos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- === Row 1→2: Front Door → Apps (fan out, 3 separate exit points) === -->
+        <mxCell id="e-fd-ec" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#4CAF50;strokeWidth=1.5;exitX=0;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="frontdoor" target="react-ec">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-fd-admin" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#4CAF50;strokeWidth=1.5;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="frontdoor" target="react-admin">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-fd-api" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#4CAF50;strokeWidth=1.5;exitX=1;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="frontdoor" target="fastapi">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- === Row 2 horizontal: EC → FastAPI, Admin → FastAPI === -->
+        <mxCell id="e-ec-api" value="API" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#888888;fontSize=10;exitX=1;exitY=0.5;entryX=0;entryY=0.25;" edge="1" parent="1" source="react-ec" target="fastapi">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-admin-api" value="API" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#888888;fontSize=10;exitX=1;exitY=0.5;entryX=0;entryY=0.75;" edge="1" parent="1" source="react-admin" target="fastapi">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- === Row 2→3: FastAPI → Cache (exits bottom-left) === -->
+        <mxCell id="e-api-redis" value="Session" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#E91E63;fontSize=10;exitX=0;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="fastapi" target="redis">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="490" y="440" />
+              <mxPoint x="144" y="440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-api-search" value="Search" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#E91E63;fontSize=10;exitX=0.25;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="fastapi" target="search">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="502" y="450" />
+              <mxPoint x="334" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- === Row 2→3: FastAPI → Order Queue (exits bottom-right) === -->
+        <mxCell id="e-api-queue" value="Enqueue" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#673AB7;strokeWidth=2;fontSize=10;exitX=0.75;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="fastapi" target="order-queue">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="526" y="460" />
+              <mxPoint x="564" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- === Row 3→2: Order Queue → Batch Worker (upward poll) === -->
+        <mxCell id="e-queue-batch" value="Poll" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#673AB7;strokeWidth=2;fontSize=10;exitX=1;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="1" source="order-queue" target="batch-worker">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="620" y="460" />
+              <mxPoint x="814" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- === Row 2→3: Batch Worker → Factory Queue (straight down) === -->
+        <mxCell id="e-batch-fq" value="Transfer Job" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#673AB7;strokeWidth=2;fontSize=10;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="batch-worker" target="factory-queue">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- === Row 2→4: FastAPI → PG Tenant (via left edge, avoids cache row) === -->
+        <mxCell id="e-api-pgT" value="Tenant Query" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1565C0;fontSize=10;exitX=0;exitY=0.5;" edge="1" parent="1" source="fastapi" target="pg-tenant">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="80" y="364" />
+              <mxPoint x="80" y="684" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- === Row 2→4: FastAPI → PG Platform (via left-ish route) === -->
+        <mxCell id="e-api-pgP" value="Platform" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1565C0;fontSize=10;exitX=0.25;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="fastapi" target="pg-platform">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="502" y="430" />
+              <mxPoint x="440" y="430" />
+              <mxPoint x="440" y="620" />
+              <mxPoint x="374" y="620" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- === Row 2→4: Batch → PG Tenant (via right edge, avoids queue row) === -->
+        <mxCell id="e-batch-pgT" value="Extract" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1565C0;fontSize=10;exitX=0;exitY=0.5;" edge="1" parent="1" source="batch-worker" target="pg-tenant">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="770" y="364" />
+              <mxPoint x="770" y="600" />
+              <mxPoint x="154" y="600" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- === Row 2→4: Batch → Blob (straight-ish down via right side) === -->
+        <mxCell id="e-batch-blob" value="CSV" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#1565C0;fontSize=10;exitX=1;exitY=1;entryX=1;entryY=0;" edge="1" parent="1" source="batch-worker" target="blob">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="860" y="430" />
+              <mxPoint x="860" y="620" />
+              <mxPoint x="618" y="620" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- === Row 2→right: FastAPI → Entra ID (horizontal right) === -->
+        <mxCell id="e-api-entra" value="Admin SSO" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF9800;strokeWidth=1.5;fontSize=10;exitX=1;exitY=0;entryX=0;entryY=0.5;" edge="1" parent="1" source="fastapi" target="entra-id">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="960" y="340" />
+              <mxPoint x="960" y="224" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- === Row 2→right: FastAPI → CIAM (horizontal right) === -->
+        <mxCell id="e-api-ciam" value="Consumer Auth" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#FF9800;strokeWidth=1.5;fontSize=10;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="fastapi" target="ciam">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="970" y="364" />
+              <mxPoint x="970" y="344" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- === Row 2→5: FastAPI → Stripe (via far-left edge) === -->
+        <mxCell id="e-api-stripe" value="Authorize" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#635BFF;strokeWidth=1.5;fontSize=10;exitX=0;exitY=1;entryX=0;entryY=0;" edge="1" parent="1" source="fastapi" target="stripe">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="490" y="420" />
+              <mxPoint x="40" y="420" />
+              <mxPoint x="40" y="838" />
+              <mxPoint x="100" y="838" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- === Row 2→5: Batch → Stripe (via far-left edge, offset) === -->
+        <mxCell id="e-batch-stripe" value="Capture" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#635BFF;strokeWidth=1.5;fontSize=10;exitX=0;exitY=1;entryX=1;entryY=0;" edge="1" parent="1" source="batch-worker" target="stripe">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="790" y="410" />
+              <mxPoint x="30" y="410" />
+              <mxPoint x="30" y="828" />
+              <mxPoint x="240" y="828" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- === Row 3→5: Factory Queue → SFTP (straight down) === -->
+        <mxCell id="e-fq-sftp" value="CSV Transfer" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#455A64;strokeWidth=1.5;fontSize=10;exitX=0;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="factory-queue" target="sftp">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="790" y="590" />
+              <mxPoint x="375" y="590" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- === Row 3→5: Factory Queue → Factory Blob (straight down) === -->
+        <mxCell id="e-fq-fblob" value="SAS URL" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#455A64;strokeWidth=1.5;fontSize=10;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="factory-queue" target="factory-blob">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- === Row 5→2: Factory Webhook → FastAPI (via right edge) === -->
+        <mxCell id="e-webhook-api" value="Shipment Notify&lt;br&gt;(HMAC-SHA256)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#9C27B0;strokeWidth=1.5;fontSize=10;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="1" source="factory-webhook" target="fastapi">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="580" y="790" />
+              <mxPoint x="950" y="790" />
+              <mxPoint x="950" y="440" />
+              <mxPoint x="514" y="440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- === Dashed: FastAPI → Key Vault (right) === -->
+        <mxCell id="e-api-kv" value="Secrets" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#F9A825;dashed=1;strokeWidth=1.5;fontSize=10;exitX=1;exitY=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="fastapi" target="keyvault">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="980" y="388" />
+              <mxPoint x="980" y="522" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- === Dashed: Batch → Key Vault (right) === -->
+        <mxCell id="e-batch-kv" value="SSH/PGP" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#F9A825;dashed=1;strokeWidth=1.5;fontSize=10;exitX=1;exitY=0.5;entryX=0;entryY=1;" edge="1" parent="1" source="batch-worker" target="keyvault">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="990" y="364" />
+              <mxPoint x="990" y="546" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- === Dashed: FastAPI → Monitor (right, lower route) === -->
+        <mxCell id="e-api-mon" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#3F51B5;dashed=1;fontSize=10;entryX=0;entryY=0.25;" edge="1" parent="1" source="fastapi" target="grp-monitor">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="514" y="780" />
+              <mxPoint x="1000" y="780" />
+              <mxPoint x="1000" y="660" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- === Dashed: Batch → Monitor (right) === -->
+        <mxCell id="e-batch-mon" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#3F51B5;dashed=1;fontSize=10;entryX=0;entryY=0.75;" edge="1" parent="1" source="batch-worker" target="grp-monitor">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="814" y="770" />
+              <mxPoint x="1010" y="770" />
+              <mxPoint x="1010" y="720" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- === Dashed: PG Tenant → DR (right) === -->
+        <mxCell id="e-pg-dr" value="Geo-Replica" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#B71C1C;dashed=1;strokeWidth=1.5;fontSize=10;exitX=0.5;exitY=1;entryX=0;entryY=0.5;" edge="1" parent="1" source="pg-tenant" target="dr-region">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="154" y="760" />
+              <mxPoint x="1060" y="760" />
+              <mxPoint x="1060" y="854" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ===== Legend ===== -->
+        <mxCell id="legend" value="&lt;b&gt;Legend&lt;/b&gt;&lt;br&gt;&lt;hr size=&quot;1&quot;&gt;&#x2500;&#x2500;&#x2500; Data Flow&lt;br&gt;- - - - Secrets / Monitoring / DR&lt;br&gt;&lt;br&gt;&lt;font color=&quot;#673AB7&quot;&gt;&#x2500;&#x2500; Queue Pipeline&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#1565C0&quot;&gt;&#x2500;&#x2500; Database Access&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#FF9800&quot;&gt;&#x2500;&#x2500; Authentication&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#635BFF&quot;&gt;&#x2500;&#x2500; Payment (Stripe)&lt;/font&gt;&lt;br&gt;&lt;font color=&quot;#E91E63&quot;&gt;&#x2500;&#x2500; Cache / Search&lt;/font&gt;" style="text;html=1;strokeColor=#CCCCCC;fillColor=#FAFAFA;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=10;spacingLeft=8;spacingTop=4;spacingRight=8;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="800" width="200" height="160" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -9,9 +9,9 @@
 |------|------|
 | プロダクト名 | ShopHub SaaS |
 | リリース | Release 1.0 |
-| バージョン | 1.0 approved |
+| バージョン | 1.3 approved |
 | 作成日 | 2026-03-08 |
-| 最終更新日 | 2026-03-08 |
+| 最終更新日 | 2026-03-09 |
 | ステータス | Approved |
 | 作成者 | 佐藤 花子（BA）、田中 誠（Architect） |
 | 承認者 | 山田 太郎（PM） |
@@ -339,9 +339,12 @@ ShopHub SaaS は中小規模小売事業者向けの個別 EC 構築・保守サ
 │  custom_domain       │       │ orders（注文）※バッチ対象            │
 │  created_at          │       │  order_id PK                        │
 │                      │       │  consumer_id FK                     │
-│ factory_masters      │       │  status, total_amount               │
-│  factory_id PK       │       │  ordered_at                         │
-│  tenant_id FK        │       │  batch_processed_at                 │
+│ factory_masters      │       │  status（pending/locked/confirmed/  │
+│  factory_id PK       │       │    shipped/cancelled/capture_failed)│
+│  tenant_id FK        │       │  ordered_at, cancellation_cutoff_at │
+│                      │       │  locked_at, batch_processed_at      │
+│                      │       │  stripe_payment_intent_id           │
+│                      │       │  stripe_capture_status              │
 │  factory_code        │       │                                     │
 │  factory_name        │       │ order_items（注文明細）              │
 │  format_def_id FK    │       │  item_id PK                         │
@@ -349,7 +352,16 @@ ShopHub SaaS は中小規模小売事業者向けの個別 EC 構築・保守サ
 │  sftp_host           │       │  product_id FK                      │
 │  sftp_user           │       │  quantity, unit_price               │
 │  sftp_key_vault_ref  │       │                                     │
-│  blob_uri            │       │ batch_logs（バッチ実行ログ）          │
+│  blob_uri            │       │ factory_order_data（工場送信データ）  │
+│  notify_type         │       │  factory_order_data_id PK           │
+│  notify_endpoint     │       │  order_id FK                        │
+│  use_pgp             │       │  factory_id FK                      │
+│                      │       │  product_code, product_name         │
+│  pgp_key_vault_ref   │       │  quantity, unit_price               │
+│  ship_notify_enabled │       │  shipping_name, shipping_address    │
+│  ship_notify_hmac_   │       │  created_at, batch_sent_at          │
+│    key_vault_ref     │       │                                     │
+│                      │       │ batch_logs（バッチ実行ログ）          │
 │  notify_type         │       │  log_id PK                          │
 │  notify_endpoint     │       │  batch_date                         │
 │  use_pgp             │       │  tenant_id, factory_id              │
@@ -395,11 +407,33 @@ ShopHub SaaS は中小規模小売事業者向けの個別 EC 構築・保守サ
 |---------|----|----|------|
 | order_id | UUID | PK, NOT NULL | 注文一意識別子 |
 | consumer_id | UUID | FK, NOT NULL | 消費者 ID（Tenant DB の consumers テーブル） |
-| status | ENUM | NOT NULL | pending / confirmed / shipped / completed / cancelled |
+| status | ENUM | NOT NULL | `pending`（オーソリ済み・キャンセル可） / `locked`（キャンセル期限到達・工場送信待ち） / `confirmed`（工場送信完了・決済確定） / `shipped`（出荷済み） / `completed`（受取完了） / `cancelled`（キャンセル済み） / `capture_failed`（キャプチャ失敗・要対応） |
 | total_amount | NUMERIC(12,0) | NOT NULL | 注文合計金額（円） |
 | ordered_at | TIMESTAMPTZ | NOT NULL | 注文日時（JST） |
-| batch_processed_at | TIMESTAMPTZ | NULL 可 | 夜間バッチ処理完了日時 |
-| stripe_payment_id | VARCHAR(255) | UNIQUE | Stripe の決済 ID |
+| cancellation_cutoff_at | TIMESTAMPTZ | NOT NULL | キャンセル期限（ordered_at + テナント設定時間、デフォルト 60 分） |
+| locked_at | TIMESTAMPTZ | NULL 可 | `locked` 遷移日時 |
+| batch_processed_at | TIMESTAMPTZ | NULL 可 | バッチ処理完了・`confirmed` 遷移日時 |
+| stripe_payment_intent_id | VARCHAR(255) | UNIQUE | Stripe PaymentIntent ID（オーソリ時に取得） |
+| stripe_capture_status | ENUM | NOT NULL | `authorized`（オーソリ済み） / `captured`（キャプチャ済み） / `voided`（void済み） / `failed`（キャプチャ失敗） |
+
+### 4.2b 工場注文データテーブル factory_order_data（Tenant DB）
+
+注文受付時に作成される工場送信用データ。バッチ処理（FR-020）のデータソース。注文後の商品・価格変更から独立した不変データとして保持する。
+
+| フィールド | 型 | 制約 | 説明 |
+|---------|----|----|------|
+| factory_order_data_id | UUID | PK, NOT NULL | 一意識別子 |
+| order_id | UUID | FK, NOT NULL | 注文 ID（orders テーブル） |
+| factory_id | UUID | FK, NOT NULL | 工場 ID（Platform DB の factory_masters） |
+| product_code | VARCHAR(100) | NOT NULL | 商品コード（注文時点の値を保持） |
+| product_name | VARCHAR(500) | NOT NULL | 商品名（注文時点の値を保持） |
+| quantity | INTEGER | NOT NULL | 数量 |
+| unit_price | NUMERIC(12,0) | NOT NULL | 単価（注文時点の値を保持） |
+| shipping_name | VARCHAR(200) | NOT NULL | 配送先氏名 |
+| shipping_zip | VARCHAR(10) | NOT NULL | 配送先郵便番号 |
+| shipping_address | VARCHAR(500) | NOT NULL | 配送先住所（都道府県〜番地・建物名） |
+| created_at | TIMESTAMPTZ | NOT NULL | レコード作成日時（注文受付時） |
+| batch_sent_at | TIMESTAMPTZ | NULL 可 | バッチにより工場に送信された日時 |
 
 ### 4.3 工場マスタ（Platform DB）
 
@@ -603,11 +637,16 @@ columns JSONB 例:
 ## Appendix C: 注文キュー駆動バッチ処理フロー（概要）
 
 ```
-消費者が注文確定（EC サイト）
-    │ 注文ステータス → confirmed / shipped
+消費者が注文受付（EC サイト）
+    │ Stripe オーソリ完了 → 注文ステータス: pending
+    │ factory_order_data テーブルに工場送信用データ作成
+    │ cancellation_cutoff_at 設定
     ▼
-Batch.Enqueue: order-batch-queue に注文イベント投入（随時・自動）
-    │ メッセージ: { tenant_id, order_id, status, enqueued_at }
+キャンセル期限スケジューラー（1 分ごとに pending 注文をチェック）
+    │ cancellation_cutoff_at 到達 → 注文ステータス: pending → locked
+    ▼
+Batch.Enqueue: order-batch-queue に注文イベント投入（自動・locked 遷移時）
+    │ メッセージ: { tenant_id, order_id, status: "locked", locked_at, enqueued_at }
     ▼
 Azure Batch Pool（常時稼働ワーカー）がキューをポーリング
     │ (tenant_id, factory_id) 単位で集約バッファに追加
@@ -617,13 +656,18 @@ Azure Batch Pool（常時稼働ワーカー）がキューをポーリング
     ▼
 フラッシュ発動 → バッチ処理開始
     │
-    ├─ テナント A / 工場 A: DB 抽出 → CSV 変換 → Blob 保存 → factory-transfer-queue 投入
+    ├─ テナント A / 工場 A: factory_order_data 抽出 → CSV 変換 → Blob 保存 → factory-transfer-queue 投入
     ├─ テナント A / 工場 B: （独立して同様に処理）
     └─ テナント B / 工場 X: （独立して同様に処理）
     │
     ▼
 FR-021（工場データ連携）が factory-transfer-queue から転送ジョブを受け取り
     │ SFTP/Blob 転送 → 転送完了通知（Webhook/メール）
+    ▼
+Batch.Capture: 転送完了通知を受信
+    │ → Stripe PaymentIntent キャプチャ（決済確定）
+    │ → 注文ステータス: locked → confirmed
+    │ → 消費者に注文確定メール送信
     ▼
 Azure Monitor にキュー深度・処理状況を随時送信
     │
@@ -654,3 +698,5 @@ Azure Monitor にキュー深度・処理状況を随時送信
 | 1.1 approved | 2026-03-09 | 山田 太郎 | 承認 |
 | 1.2 draft 1 | 2026-03-09 | 佐藤 花子 | FR-020 アーキテクチャ変更に伴い Section 3.6・Appendix C を更新。「22:00 固定スケジュール」→「常時キュー駆動バッチ（SizeFlush/TimeFlush）」に改訂。Azure Service Bus キュー構成（order-batch-queue・factory-transfer-queue）を明記。NFR-BATCH-01 を更新 |
 | 1.2 approved | 2026-03-09 | 山田 太郎 | 承認 |
+| 1.3 draft 1 | 2026-03-09 | 佐藤 花子 | 注文ライフサイクル変更: Section 4.2 orders テーブルを更新（status ENUM に `locked`/`capture_failed` 追加、`cancellation_cutoff_at`/`locked_at`/`stripe_capture_status` カラム追加）。Section 4.2b `factory_order_data` テーブル新設。Stripe オーソリ→pending→locked→確定（captured）フローを反映 |
+| 1.3 approved | 2026-03-09 | 山田 太郎 | 承認 |

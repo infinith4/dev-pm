@@ -69,7 +69,8 @@ AI駆動開発プロジェクトです。GitHub Copilot、Codex、Claude Codeを
 ├── pm-wbs/            # WBS管理 (/pm-wbs)
 ├── pm-schedule/       # スケジュール管理 (/pm-schedule)
 ├── pm-resource/       # リソース管理 (/pm-resource)
-└── pm-risk/           # リスク管理 (/pm-risk)
+├── pm-risk/           # リスク管理 (/pm-risk)
+└── system-diagram/    # システム構成図作成 (/system-diagram)
 ```
 
 ### フック設定
